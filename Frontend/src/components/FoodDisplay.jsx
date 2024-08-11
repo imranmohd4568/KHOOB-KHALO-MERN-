@@ -7,8 +7,8 @@ const FoodDisplay = ({category}) => {
     const {food_list} = useContext(StoreContext)
 
     return (
-        <div className='food-display mt-7'>
-            <h2 className='font-semibold text-lg'>Food List</h2>
+        <div className='food-display mt-7 mx-4'>
+            <h2 className=' text-3xl font-outfit  font-bold text-yellow-400'>Food List</h2>
             <div className=' grid grid-cols-4 mt-7 gap-5 animate-fadeIn'>
                 {food_list.map((item,index)=>{
                     {console.log(category,item.category);}

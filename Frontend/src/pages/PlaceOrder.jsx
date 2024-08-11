@@ -1,32 +1,73 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { StoreContext } from '../components/StoreContext'
 
 const PlaceOrder = () => {
 
-    const {getTotalCartAmount}=useContext(StoreContext)
+    const {getTotalCartAmount,token,food_list,cartItems,url}=useContext(StoreContext)
 
+    const [data,setData]=useState({
+        firstName:"",
+        lastName:"",
+        email:"",
+        phone:"",
+        street:"",
+        city:"",
+        state:"",
+        zipcode:"",
+        country:""
+    })
+
+    const onChangeHandler=(event)=>{
+        const name=event.target.name;
+        const value=event.target.value;
+        setData(data=>({...data,[name]:value}))
+    }
+
+    const placeOrder = async (event) => {
+        event.preventDefault();
+        let orderItems = [];
+        food_list.map((item)=>{
+        if (cartItems[item._id]>0) {
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id];
+        orderItems.push(itemInfo);
+            }
+        })
+        let orderData ={
+            address:data,
+            items:orderItems,
+            amount:getTotalCartAmount()+2,
+        }
+        let response= await axios.post(url+"/api/order/place",orderData,{headers:{token}})
+        if (response.data.success){
+            const {session_url}=response.data;
+            window.location.replace(session_url);
+    } else{
+        alert("Order failed");
+    }
+}
 
     return (
-    <form className='place-order flex items-start justify-between mt-20 mx-20'>
+    <form onSubmit={placeOrder} className='place-order flex items-start justify-between mt-20 mx-20'>
         <div className="place-order-left w-[100%] max-w-[max(30%,500px)]">
             <p className="title text-3xl font-serif font-semibold mb-12">
                 Delivery Information
             </p>
             <div className="multi-fields flex gap-2">
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='First Name' required />
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500"placeholder='Last Name' required />
+                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='First Name' name='firstName' onChange={onChangeHandler} value={data.firstName} required />
+                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500"placeholder='Last Name' name='lastName' onChange={onChangeHandler} value={data.lastName} required />
             </div>
-            <input type="email" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Email Address' required />
-            <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Street' required />
+            <input name='email' onChange={onChangeHandler} value={data.email} type="email" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Email Address' required />
+            <input name='street' onChange={onChangeHandler} value={data.street} type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Street' required />
             <div className="multi-fields flex gap-2">
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='City' required />
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='State' required />
+                <input name='city' onChange={onChangeHandler} value={data.city} type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='City' required />
+                <input name='state' onChange={onChangeHandler} value={data.state} type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='State' required />
             </div>
             <div className="multi-fields flex gap-2">
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='ZIP CODE' required />
-                <input type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Country' required />
+                <input name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='ZIP CODE' required />
+                <input name='country' onChange={onChangeHandler} value={data.country} type="text" className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" placeholder='Country' required />
             </div>
-            <input className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" type='text' placeholder='Phone' required></input>
+            <input name='phone' onChange={onChangeHandler} value={data.phone} className="text mb-4 w-[100%] p-2 border border-zinc-400 rounded outline-green-500" type='text' placeholder='Phone' required></input>
         </div>
         <div className="place-order-right w-[100%] max-w-max(40%,500px) ml-32">
             <div className="cart-total flex-1 flex flex-col gap-5">
@@ -48,7 +89,7 @@ const PlaceOrder = () => {
                         
                     </div>
                     </div>
-                    <button onClick={()=>navigate('/order')} className='border-none text-white bg-green-600 rounded-md w-[max(18vw,250px)] px-3 py-3 cursor-pointer text-base font-semibold mt-8 '>PROCEED TO PAY</button>
+                    <button type='submit' className='border-none text-white bg-green-600 rounded-md w-[max(18vw,250px)] px-3 py-3 cursor-pointer text-base font-semibold mt-8 '>PROCEED TO PAY</button>
                 </div>
 
         </div>
