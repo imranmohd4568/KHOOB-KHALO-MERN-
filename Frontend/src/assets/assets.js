@@ -46,6 +46,64 @@ import food_29 from './food_29.png'
 import food_30 from './food_30.png'
 import food_31 from './food_31.png'
 import food_32 from './food_32.png'
+import italian_menu from './italian_menu.png'
+import bev_menu from './bev_menu.png'
+import bev1 from './bev1.jpeg'
+import bev2 from './bev2.jpeg'
+import bev3 from './bev3.jpg'
+import bev4 from './bev4.jpg'
+import bev5 from './bev5.jpeg'
+import bev6 from './bev6.jpeg'
+import bev7 from './bev7.jpg'
+
+import bir_menu from './bir_menu.png'
+import bir1 from './bir1.jpeg'
+import bir2 from './bir2.jpeg'
+import bir3 from './bir3.jpeg'
+import bir4 from './bir4.jpeg'
+import bir5 from './bir5.jpeg'
+import bir6 from './bir6.jpeg'
+import bir7 from './bir7.jpeg'
+import bir8 from './bir8.jpeg'
+
+import ff_menu from './ff_menu.png'
+import ff1 from './ff1.jpeg'
+import ff2 from './ff2.jpeg'
+import ff3 from './ff3.jpeg'
+import ff4 from './ff4.jpeg'
+import ff5 from './ff5.jpg'
+import ff6 from './ff6.jpeg'
+import ff7 from './ff7.jpeg'
+import ff8 from './ff8.jpeg'
+import ff9 from './ff9.jpeg'
+import ff10 from './ff10.jpeg'
+import ff11 from './ff11.jpeg'
+import ff12 from './ff12.jpeg'
+
+import sh_menu from './sh_menu.png'
+import sh1 from './sh1.jpeg'
+import sh2 from './sh2.jpeg'
+import sh3 from './sh3.jpeg'
+import sh4 from './sh4.jpeg'
+
+import st_menu from './st_menu.png'
+import st1 from './st1.jpeg'
+import st2 from './st2.jpeg'
+import st3 from './st3.jpeg'
+import st4 from './st4.jpeg'
+import st5 from './st5.jpg'
+import st6 from './st6.jpeg'
+import st7 from './st7.jpeg'
+
+import roti_menu from './roti_menu.png'
+import roti1 from './roti1.jpeg'
+import roti2 from './roti2.jpeg'
+import roti3 from './roti3.jpeg'
+import roti4 from './roti4.jpeg'
+import roti5 from './roti5.jpeg'
+import roti6 from './roti6.jpeg'
+import roti7 from './roti7.jpeg'
+
 
 import add_icon_white from './add_icon_white.png'
 import add_icon_green from './add_icon_green.png'
@@ -87,38 +145,56 @@ export const assets = {
 }
 
 export const menu_list = [
+
     {
         menu_name: "Salad",
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
-        menu_image: menu_2
+        menu_name: "Italian",
+        menu_image: italian_menu
+    },
+    
+    {
+        menu_name: "Shawarma",
+        menu_image: sh_menu
+    },
+   
+    
+    
+    {
+        menu_name: "Chinese",
+        menu_image: ff_menu
     },
     {
-        menu_name: "Deserts",
-        menu_image: menu_3
+        menu_name: "Starters",
+        menu_image: st_menu
     },
     {
-        menu_name: "Sandwich",
-        menu_image: menu_4
+        menu_name: "Rotis",
+        menu_image: roti_menu
     },
+    {
+        menu_name: "Biryani",
+        menu_image: bir_menu
+    },
+   
+    
+    {
+        menu_name: "Beverages",
+        menu_image: bev_menu
+    },
+    
     {
         menu_name: "Cake",
         menu_image: menu_5
     },
+    
     {
-        menu_name: "Pure Veg",
-        menu_image: menu_6
-    },
-    {
-        menu_name: "Pasta",
-        menu_image: menu_7
-    },
-    {
-        menu_name: "Noodles",
-        menu_image: menu_8
-    }]
+        menu_name: "Deserts",
+        menu_image: menu_3
+    }
+]
 
 export const food_list = [
     {

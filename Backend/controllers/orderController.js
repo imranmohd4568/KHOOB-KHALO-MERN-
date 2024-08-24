@@ -1,3 +1,4 @@
+/*
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
@@ -6,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Placing user order from frontend
 const placeOrder = async (req, res) => {
-    const frontend_url = "https://localhost:5174";
+    const frontend_url = "https://localhost:5173";
 
     try {
         const newOrder = new orderModel({
@@ -56,3 +57,64 @@ const placeOrder = async (req, res) => {
 };
 
 export { placeOrder };
+*/
+import orderModel from "../models/orderModel.js";
+import userModel from "../models/userModel.js";
+
+// Placing user order from frontend
+const placeOrder = async (req, res) => {
+    try {
+        const newOrder = new orderModel({
+            userId: req.body.userId,
+            items: req.body.items,
+            amount: req.body.amount,
+            address: req.body.address,
+            payment:true
+        });
+
+        await newOrder.save();
+        await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
+
+        res.json({ success: true, message: "Order placed successfully" });
+    } catch (error) {
+        console.error("Backend error:", error);
+        res.json({ success: false, message: "Error placing order: " + error.message });
+    }
+};
+///user orders for frontend
+const userOrders = async(req,res)=>{
+    try {
+        const orders = await orderModel.find({ userId: req.body.userId });
+        res.json({success:true,data:orders})
+    } catch(error){
+        console.log("Error fetching user orders:", error);
+        res.json({success:false,message})
+    }
+}
+
+//lisitng orders for admin panel
+const listOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({});
+        res.json({ success: true, data: orders });
+}catch(error){
+    console.log("Error fetching orders:", error);
+    res.json({ success: false, message: "Error fetching orders" });
+
+}
+}
+
+
+
+//api for updating order status
+const updateStatus=async(req,res)=>{
+    try {
+        await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status});
+        res.json({success:true,message:"Order status updated successfully"})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Error updating order status"})
+    }
+}
+
+export { placeOrder,userOrders,listOrders,updateStatus };

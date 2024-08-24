@@ -2,11 +2,17 @@ import React, { useContext } from 'react'
 import { StoreContext } from '../components/StoreContext';
 import { food_list } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const Cart = () => {
     const {cartItems,food_list,removeFromCart,getTotalCartAmount,url}= useContext(StoreContext);
 
     const navigate =useNavigate();
+
+    const handleRemoveFromCart = (itemId) => {
+        removeFromCart(itemId);
+        toast.success("Food removed from cart!");
+    };
 
     return (
         <div className='cart mt-24 mx-6'>
@@ -31,7 +37,7 @@ const Cart = () => {
                             <p>${item.price}</p>
                             <p className='ml-3'>{cartItems[item._id]}</p>
                             <p className='ml-3'>${item.price*cartItems[item._id]}</p>
-                            <p className='cross cursor-pointer ml-3 text-lg text-red-600' onClick={()=>removeFromCart(item._id)}>X</p>
+                            <p className='cross cursor-pointer ml-3 text-lg text-red-600' onClick={() => handleRemoveFromCart(item._id)}>X</p>
                         </div>
                         <hr/>
                         </div>

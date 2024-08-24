@@ -51,7 +51,7 @@ import { toast } from 'react-toastify'
                             <p>{item.name}</p>
                             <p>{item.category}</p>
                             <p>{item.price}</p>
-                            <p onClick={()=>removeFood(item._id)} className='cursor-pointer'>X</p>
+                            <p onClick={()=>removeFood(item._id)} className='cursor-pointer text-red-500'>X</p>
                         </div>
                     )
                 })}

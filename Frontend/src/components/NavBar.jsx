@@ -80,7 +80,7 @@ const NavBar = ({ setShowLogin }) => {
                         <img src={assets.profile_icon} alt="Profile Icon" className='cursor-pointer hover:scale-105 duration-100' onClick={toggleProfileOptions} />
                         {showProfileOptions && (
                             <ul className='nav-profile-dropdown mt-3 absolute right-0 z-10 bg-green-200 w-28 shadow-lg rounded-lg'>
-                                <li className='flex items-center p-2 hover:bg-green-300 cursor-pointer hover:rounded-lg' onClick={() => { /* Handle Orders Click */ }}>
+                                <li onClick={()=>navigate('/myorders')} className='flex items-center p-2 hover:bg-green-300 cursor-pointer hover:rounded-lg' >
                                     <img src={assets.bag_icon} alt="Orders" className='w-5 h-5 mr-2' /><p>Orders</p>
                                 </li>
                                 <hr className='my-1' />
